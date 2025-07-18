@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class ColorMeaningChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, String> colors = new HashMap<>();
+
+        colors.put("Red", "Passion, energy, and love");
+        colors.put("Blue", "Calmness and trust");
+        colors.put("Green", "Growth and harmony");
+        colors.put("Yellow", "Happiness and optimism");
+
+        while (true) {
+            System.out.print("\nEnter a color (or type 'list', 'add', 'exit'): ");
+            String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Goodbye!");
+                break;
+            } else if (input.equalsIgnoreCase("list")) {
+                System.out.println("Available colors:");
+                for (String color : colors.keySet()) {
+                    System.out.println("- " + color);
+                }
+            } else if (input.equalsIgnoreCase("add")) {
+                System.out.print("Enter new color name: ");
+                String newColor = scanner.nextLine().trim();
+                System.out.print("Enter its meaning: ");
+                String meaning = scanner.nextLine().trim();
+                colors.put(newColor, meaning);
+                System.out.println("added successfully!");
+            } else {
+                String meaning = colors.getOrDefault(capitalize(input), null);
+                if (meaning != null) {
+                    System.out.println(capitalize(input) + ": " + meaning);
+                } else {
+                    System.out.println("Color not found .Try again.");
+                }
+            }
+        }
+
+        scanner.close();
+    }
+
+    // Capitalizes first letter (helper function)
+    private static String capitalize(String str) {
+        if (str.isEmpty()) return str;
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+}
